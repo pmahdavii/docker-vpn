@@ -52,6 +52,22 @@ To connect to the `foo` VPN put your config file at `~/.vpn/foo.ovpn` and then y
 
 You can optionally put your credentials in `~/.vpn/foo.creds`. The username goes on the first line and the password on the second line. This gives up some security for the convenience of not having to enter your username and password. You will still be prompted for your 2FA code if your VPN endpoint requires it. You can run `chmod 600 ~/.vpn/foo.creds` to ensure only the file owner can read it.
 
+Don't forget to add the following three lines at the start of your ovpn file:
+```
+script-security 2
+up /etc/openvpn/up.sh
+down /etc/openvpn/down.sh
+```
+The file would look something like this:
+```
+script-security 2
+up /etc/openvpn/up.sh
+down /etc/openvpn/down.sh
+client
+.
+.
+```
+
 ### OpenConnect Profile
 
 OpenConnect offers an additional interactive command `openconnect_new_profile` which will guide you through a creation of a configuration profile. Once created, the profile is saved in `~/.vpn/NAME.profile` and `~/.vpn/NAME.secret`. To connect using a profile you can simply use `openconnect NAME` and the VPN connection will be established without any interaction. Currently the following options are supported:
